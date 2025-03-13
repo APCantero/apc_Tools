@@ -1,0 +1,191 @@
+set cut_paste_input [stack 0]
+version 15.0 v1
+push $cut_paste_input
+Group {
+ name ST_Project
+ selected true
+ xpos 8153
+ ypos 6383
+ addUserKnob {20 User}
+ addUserKnob {41 firstFrame l "ref frame" T FrameHold19.firstFrame}
+ addUserKnob {41 setToCurrentFrame l "Set to Current Frame" -STARTLINE T FrameHold19.setToCurrentFrame}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 format T Reformat.format}
+ addUserKnob {41 scale l "format mult" T Multiplier.scale}
+ addUserKnob {41 overscan T ScanlineRender13.overscan}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {6 georef l "geo ref" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name cam
+  xpos 1212
+  ypos 418
+  number 2
+ }
+ Dot {
+  name Dot4
+  xpos 1246
+  ypos 1272
+ }
+ Dot {
+  name Dot3
+  xpos 620
+  ypos 1272
+ }
+set N1db5c000 [stack 0]
+push $N1db5c000
+push $N1db5c000
+ Dot {
+  name Dot153
+  xpos 620
+  ypos 760
+ }
+ Reformat {
+  inputs 0
+  format "1024 1024 0 0 1024 1024 1 square_1K"
+  name Reformat
+  xpos 302
+  ypos 591
+ }
+ set C1db5c800 [stack 0]
+ Expression {
+  expr0 x/(width-1)
+  expr1 y/(height-1)
+  name Expression7
+  xpos 302
+  ypos 661
+ }
+ Project3D2 {
+  inputs 2
+  project_on front
+  crop false
+  name Project3D6
+  xpos 302
+  ypos 757
+ }
+ Input {
+  inputs 0
+  name geo
+  xpos 4
+  ypos 423
+ }
+ Dot {
+  name Dot2
+  xpos 38
+  ypos 603
+ }
+set N1db5dc00 [stack 0]
+ Dot {
+  name Dot152
+  xpos 170
+  ypos 603
+ }
+ ApplyMaterial {
+  inputs 2
+  name ApplyMaterial7
+  xpos 136
+  ypos 757
+ }
+ FrameHold {
+  firstFrame 1001
+  name FrameHold19
+  xpos 136
+  ypos 822
+ }
+clone $C1db5c800 {
+  inputs 0
+  xpos 348
+  ypos 860
+  selected false
+ }
+ Reformat {
+  type scale
+  name Multiplier
+  xpos 348
+  ypos 917
+ }
+ ScanlineRender {
+  inputs 3
+  conservative_shader_sampling false
+  projection_mode uv
+  motion_vectors_type distance
+  name ScanlineRender12
+  xpos 136
+  ypos 917
+ }
+ Input {
+  inputs 0
+  name img
+  xpos 811
+  ypos 414
+  number 1
+ }
+clone $C1db5c800 {
+  xpos 811
+  ypos 594
+  selected false
+ }
+ Dot {
+  name Dot1
+  xpos 845
+  ypos 1060
+ }
+ STMap {
+  inputs 2
+  channels rgba
+  uv rgba
+  name STMap6
+  xpos 136
+  ypos 1057
+ }
+set N1dbb4c00 [stack 0]
+ CheckerBoard2 {
+  inputs 0
+  format "2048 2048 0 0 2048 2048 1 square_2K"
+  name CheckerBoard1
+  xpos -280
+  ypos 1081
+ }
+ MergeMat {
+  inputs 2
+  name MergeMat1
+  xpos 69
+  ypos 1105
+ }
+push $N1dbb4c00
+ Switch {
+  inputs 2
+  which {{parent.georef}}
+  name Switch1
+  selected true
+  xpos 136
+  ypos 1139
+ }
+ Dot {
+  name Dot154
+  xpos 170
+  ypos 1185
+ }
+push $N1db5dc00
+ ApplyMaterial {
+  inputs 2
+  name ApplyMaterial8
+  xpos 0
+  ypos 1182
+ }
+push 0
+ ScanlineRender {
+  inputs 3
+  conservative_shader_sampling false
+  motion_vectors_type distance
+  name ScanlineRender13
+  xpos 0
+  ypos 1269
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 1677
+ }
+end_group
